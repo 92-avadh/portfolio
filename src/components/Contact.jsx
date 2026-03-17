@@ -65,14 +65,14 @@ export default function Contact() {
                 <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors">
                   <Mail size={24} />
                 </div>
-                <span className="text-lg font-medium">your.email@example.com</span>
+                <span className="text-lg font-medium">dhameliyaavadh592@gmail.com</span>
               </a>
               
               <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
                 <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
                   <MapPin size={24} />
                 </div>
-                <span className="text-lg font-medium">Ahmedabad, Gujarat, India</span>
+                <span className="text-lg font-medium">Surat, Gujarat, India</span>
               </div>
             </div>
 
