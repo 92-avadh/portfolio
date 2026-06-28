@@ -1,0 +1,14 @@
+/* Styling for the scramble text effect */
+.scramble-char-encrypted {
+  color: var(--accent);
+  opacity: 0.85;
+  filter: brightness(1.2);
+  transition: color 0.1s ease;
+  font-family: monospace;
+}
+
+.scramble-char-decrypted {
+  color: inherit;
+  opacity: 1;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
