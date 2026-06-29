@@ -34,6 +34,10 @@
   --accent-soft: rgba(230, 51, 41, 0.12);
   /* lines */
   --border: #e8e8e8;
+  /* glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(232, 232, 232, 0.6);
+  --glass-shadow: rgba(0, 0, 0, 0.04);
   /* cursor */
   --cursor-fill: #ffffff;
   /* grid */
@@ -54,6 +58,10 @@
   --accent: #ff3b30;
   --accent-soft: rgba(255, 59, 48, 0.16);
   --border: #232323;
+  /* glassmorphism */
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: rgba(35, 35, 35, 0.5);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
   --grid-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M14 10v8M10 14h8' stroke='%23ffffff' stroke-width='1.1' stroke-opacity='0.05'/%3E%3C/svg%3E");
 }
 

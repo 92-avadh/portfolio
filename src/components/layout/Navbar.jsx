@@ -19,10 +19,25 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { setHover } = useCursor()
 
-  // Lock body scroll while the overlay is open.
+  // Lock body scroll and pause/resume global Lenis while the overlay is open.
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (open) {
+      document.body.style.overflow = 'hidden'
+      if (window.lenis && typeof window.lenis.stop === 'function') {
+        window.lenis.stop()
+      }
+    } else {
+      document.body.style.overflow = ''
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start()
+      }
+    }
+    return () => {
+      document.body.style.overflow = ''
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start()
+      }
+    }
   }, [open])
 
   // Scroll-aware bar background.
@@ -61,12 +76,13 @@ export function Navbar() {
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          padding: '24px clamp(20px, 4vw, 48px)',
-          background: scrolled ? 'var(--bg-elev)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(10px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(10px)' : 'none',
-          borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
-          transition: 'background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease',
+          padding: scrolled ? '12px clamp(20px, 4vw, 48px)' : '18px clamp(20px, 4vw, 48px)',
+          background: scrolled ? 'var(--glass-bg)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px) saturate(160%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(160%)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
+          boxShadow: scrolled ? '0 8px 32px 0 var(--glass-shadow)' : 'none',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <a
@@ -96,6 +112,8 @@ export function Navbar() {
               position: 'fixed', inset: 0, background: 'var(--bg)', color: 'var(--text)', zIndex: 9998,
               display: 'flex', flexDirection: 'row', flexWrap: 'wrap',
               overflowY: 'auto',
+              maxHeight: '100vh',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {/* Grid background decoration */}

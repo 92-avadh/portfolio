@@ -185,6 +185,9 @@ const ScrollStack = ({
   }, [updateCardTransforms]);
 
   const setupLenis = useCallback(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      return null;
+    }
     if (useWindowScroll) {
       const lenis = new Lenis({
         duration: 1.2,
@@ -269,7 +272,13 @@ const ScrollStack = ({
       card.style.webkitPerspective = '1000px';
     });
 
-    setupLenis();
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+    if (isMobile) {
+      scroller.addEventListener('scroll', handleScroll, { passive: true });
+    } else {
+      setupLenis();
+    }
 
     updateCardTransforms();
 
@@ -279,6 +288,9 @@ const ScrollStack = ({
       }
       if (lenisRef.current) {
         lenisRef.current.destroy();
+      }
+      if (isMobile) {
+        scroller.removeEventListener('scroll', handleScroll);
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];
@@ -298,7 +310,8 @@ const ScrollStack = ({
     useWindowScroll,
     onStackComplete,
     setupLenis,
-    updateCardTransforms
+    updateCardTransforms,
+    handleScroll
   ]);
 
   return (

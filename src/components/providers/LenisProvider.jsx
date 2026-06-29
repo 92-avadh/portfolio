@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import Lenis from '@studio-freight/lenis'
+import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 export function LenisProvider({ children }) {
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.08, smoothWheel: true })
+    window.lenis = lenis
     lenis.on('scroll', ScrollTrigger.update)
     
     const tickerCallback = (time) => {
@@ -19,6 +20,7 @@ export function LenisProvider({ children }) {
     
     return () => {
       lenis.destroy()
+      window.lenis = undefined
       gsap.ticker.remove(tickerCallback)
     }
   }, [])

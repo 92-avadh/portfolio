@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { skillZones } from '@/data/skills'
 import { Section } from '@/components/ui/Section'
@@ -8,6 +8,10 @@ import { SplitHeading } from '@/components/ui/Reveal'
 import { useCursor } from '@/components/providers/CursorProvider'
 import { EASE_EXPO } from '@/lib/motion'
 import TextType from '@/components/ui/TextType'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const zoneDescriptions = {
   '01': "Designing fluid, highly responsive user interfaces using modern framework design principles, clean layouts, and physics-based animations.",
@@ -24,9 +28,40 @@ const zoneDescriptions = {
  * tech tags crossfade in. Fixes the old static-panel + hover-bug design.
  */
 export function SkillsSection() {
+  const wrapRef = useRef(null)
   const [active, setActive] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
   const { setHover } = useCursor()
   const zone = skillZones[active]
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobile) return
+
+    const ctx = gsap.context(() => {
+      const tabEls = gsap.utils.toArray('.skill-tab')
+      tabEls.forEach((tab, i) => {
+        ScrollTrigger.create({
+          trigger: tab,
+          start: 'top 55%',
+          end: 'bottom 55%',
+          onToggle: (self) => {
+            if (self.isActive) {
+              setActive(i)
+            }
+          },
+        })
+      })
+    }, wrapRef)
+
+    return () => ctx.revert()
+  }, [isMobile])
 
   return (
     <Section id="skills" theme="light">
@@ -52,7 +87,7 @@ export function SkillsSection() {
       </p>
 
       {/* Zone tabs */}
-      <div style={{
+      <div ref={wrapRef} style={{
         display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
         gap: 0, marginTop: 48, borderTop: '1px solid var(--border)',
       }}>
@@ -62,7 +97,7 @@ export function SkillsSection() {
             <button
               key={z.num}
               className="skill-tab"
-              onMouseEnter={() => setActive(i)}
+              onMouseEnter={() => !isMobile && setActive(i)}
               onClick={() => setActive(i)}
               onPointerEnter={() => setHover(true)}
               onPointerLeave={() => setHover(false)}
@@ -72,7 +107,8 @@ export function SkillsSection() {
                 borderRight: i < skillZones.length - 1 ? '1px solid var(--border)' : 'none',
                 background: isActive ? 'var(--accent-soft)' : 'transparent',
                 borderLeft: isActive ? '2px solid var(--accent)' : '2px solid transparent',
-                cursor: 'none', transition: 'background 0.3s ease, border-color 0.3s ease',
+                cursor: 'none', transition: 'background 0.3s ease, border-color 0.3s ease, opacity 0.4s cubic-bezier(0.76, 0, 0.24, 1)',
+                opacity: isMobile ? (isActive ? 1 : 0.3) : 1,
               }}
             >
               <span style={{
