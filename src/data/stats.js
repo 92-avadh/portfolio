@@ -2,7 +2,7 @@
 
 export const stats = [
   { value: 15, suffix: '+', label: 'Projects shipped' },
-  { value: 4, suffix: '+', label: 'Years coding' },
+  { value: 3, suffix: '+', label: 'Years coding' },
   { value: 10, suffix: '+', label: 'Technologies' },
   { value: 100, suffix: '%', label: 'Commitment' },
 ]
