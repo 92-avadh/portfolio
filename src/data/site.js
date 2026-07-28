@@ -7,6 +7,7 @@ export const site = {
   monogram: 'AD',
   role: 'Full-Stack Developer',
   location: 'Surat, Gujarat',
+  url: 'https://portfolio-avadh.vercel.app',
   tagline: 'I design it, build it, ship it, then keep the whole thing running.',
   intro: 'MERN Stack · Next.js · Node.js · Python',
   email: 'dhameliyaavadh592@gmail.com',
