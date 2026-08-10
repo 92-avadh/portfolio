@@ -30,7 +30,7 @@ export const experience = [
     title: 'MERN Project Suite',
     org: 'Personal & Academic',
     description:
-      'Delivered Local Service Finder, Campus Management System, and SpendWithMe — full MERN applications shipped to production.',
+      'Delivered Local Service Finder, Tesca Spoken English platform, and SpendWithMe — full MERN applications shipped to production.',
     tag: 'Projects',
   },
 ]

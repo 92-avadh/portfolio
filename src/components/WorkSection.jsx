@@ -15,10 +15,10 @@ const projects = [
     href: 'https://tescavisa.com'
   },
   {
-    title: 'Campus Management System',
-    description: 'A comprehensive academic portal handling course enrollments, grade sheets, class schedules, and student directories.',
-    tags: ['React', 'Node.js', 'Express.js', 'Tailwind CSS', 'Astro JS'],
-    href: 'https://github.com/92-avadh/campus-management-system'
+    title: 'Tesca Spoken English',
+    description: 'A comprehensive English learning and institute management platform built on the MERN stack.',
+    tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS', 'MERN Stack'],
+    href: 'https://tesca.co'
   },
   {
     title: 'Management Dashboard',
